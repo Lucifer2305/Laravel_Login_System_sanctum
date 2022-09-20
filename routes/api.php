@@ -26,3 +26,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/change_password', [UserAuthController::class, 'change_password']); 
 
 });
+Route::get('/testing',function(){
+    return("good job");
+ });

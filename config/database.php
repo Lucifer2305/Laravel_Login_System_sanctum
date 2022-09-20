@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Str;
 
+define('RDS_HOSTNAME', 'micdbsql.cjiaj7lwp9fb.us-west-2.rds.amazonaws.com');
+define('RDS_USERNAME', 'lancer');
+define('RDS_PASSWORD', 'vishwa123');
+define('RDS_DB_NAME', 'MIC_BackEndSQL');
+
+
 return [
 
     /*
@@ -46,11 +52,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => RDS_HOSTNAME,
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => RDS_DB_NAME,
+            'username' => RDS_USERNAME,
+            'password' => RDS_PASSWORD,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
