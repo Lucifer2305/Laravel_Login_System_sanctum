@@ -19,13 +19,27 @@ Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 Route::post('/forgot-password',[UserAuthController::class, 'forget_password']);
 Route::post('/reset',[UserAuthController::class, 'reset']);
+//Route::get('/user/{email}/show', [UserAuthController::class, 'show']); 
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [UserAuthController::class, 'logout']);
     Route::post('/change_password', [UserAuthController::class, 'change_password']); 
+    Route::get('/show', [UserAuthController::class, 'show']); 
+    Route::post('/status',[UserAuthController::class, 'statusON']);
+    Route::post('/cForm',[UserAuthController::class, 'Contact']);
+
+
 
 });
 Route::get('/testing',function(){
     return("good job");
+ });
+
+ Route::get('/on',function(){
+    return("on");
+ });
+
+ Route::get('/off',function(){
+    return("off");
  });

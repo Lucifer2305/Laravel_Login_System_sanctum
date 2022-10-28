@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Str;
 
-define('RDS_HOSTNAME', 'micdbsql.cjiaj7lwp9fb.us-west-2.rds.amazonaws.com');
-define('RDS_USERNAME', 'lancer');
-define('RDS_PASSWORD', 'vishwa123');
-define('RDS_DB_NAME', 'MIC_BackEndSQL');
+define('RDS_HOSTNAME', 'database-2.cxpd8nmeueg3.ap-southeast-1.rds.amazonaws.com');
+define('RDS_USERNAME', 'lucifer');
+define('RDS_PASSWORD', 'Bhai_2309');
+define('RDS_DB_NAME', 'Interview_BackEndSQL');
 
 
 return [

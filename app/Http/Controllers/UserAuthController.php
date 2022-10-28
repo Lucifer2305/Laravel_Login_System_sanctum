@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Status;
+use App\Models\contactForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -10,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Validation\Rules\Password as RulesPassword;
 
@@ -31,6 +34,11 @@ class UserAuthController extends Controller
             'email' => $fields['email'],
             'password' => bcrypt($fields['password'])
         ]);
+
+        //$status = Status::create([
+        //    'email' => $fields['email'],
+        //    'status'=> "off"
+        //]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
 
@@ -152,5 +160,76 @@ class UserAuthController extends Controller
 
     }
 
+    public function show()
+    {
+        $user =  auth('sanctum')->user()->email;  
+        //return $user;
+        $content = DB::select('select status from statuses WHERE email = ?',[$user]);
+        //$content = DB::select('select status from users where email =?',[$email]);
+                //->get();  
+
+        //return response()->json(["status" => 200, "data" => $content]);
+        //dd($content);
+
+        return $content;
+    }
+
+    public function Contact(Request $request){
+
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'dateofbirth' => 'required|string',
+            'email' => 'required|string',
+            'SSN' => 'required|string'
+
+        ]);
+
+        $user = contactForm::create([
+            'name' => $fields['name'],
+            'dateofbirth' => $fields['dateofbirth'],
+            'email' =>bcrypt($fields['email']),
+            'SSN' => $fields['SSN']
+        ]);
+    }
+
+    public function statusON(Request $request)
+    {
+        $fields = $request->validate([
+            'status' => 'required|string',
+        ]);
+
+
+        $user = auth('sanctum')->user()->email;
+        
+        $content = DB::update('update statuses set status = ? where email = ?', [$fields['status'],$user]);
+
+        //$status = Status::all()->pluck('email');
+        //return $status;
+
+        //$status->status = $request->status;
+        //$status->update();
+
+        return response()->json([
+            'message'=>'Status is updated' ,
+        ],200);
+    }
+
+    public function statusOFF()
+    {
+        //$request->validate([
+        //    'status' => 'required|string',
+        //]);
+
+
+        $user = auth('sanctum')->user()->email;
+        
+        $content = DB::update('update statuses set status = "OFF" where email = ?', [$user]);
+
+        //$status = Status::all()->pluck('email');
+        //return $status;
+
+        //$status->status = $request->status;
+        //$status->update();
+    }
 
 }
